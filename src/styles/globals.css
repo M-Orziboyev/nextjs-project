@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body{
+        @apply bg-[#141414]
+    }
+}
+
+@layer components {
+    .navLink{
+        @apply cursor-pointer text-sm font-light text-[#fff] hover:text-[#b3b3b3b3]
+    }
+}
