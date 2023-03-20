@@ -12,4 +12,7 @@
     .navLink{
         @apply cursor-pointer text-sm font-light text-[#fff] hover:text-[#b3b3b3b3]
     }
+    header{
+        @apply flex top-0 w-full z-50 fixed items-center justify-between px-4 py-4 transition-all lg:py-6
+    }
 }
