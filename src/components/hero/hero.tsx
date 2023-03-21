@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { IMovie } from '../interfaces/app.interface';
 import { HeroProps } from './hero.props';
 import { useState, useEffect } from 'react';
+import { TbPlayerPlay } from 'react-icons/tb';
 
 function Hero({ trending }: HeroProps): JSX.Element {
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
@@ -13,15 +14,23 @@ function Hero({ trending }: HeroProps): JSX.Element {
     }, [trending])
 
     return (
-        <div className='flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[65vh] lg:pb-12 lg:justify-end '>
+        <div className='flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[65vh] lg:pb-12 lg:justify-end text-white'>
             <div className='absolute top-0 left-0 -z-10 h-[95vh] w-full'>
-                <Image src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`} alt={movie.name} fill className='object-cover'/>
+                <Image
+                    src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`}
+                    alt={movie.title}
+                    fill
+                    className='object-cover'
+                />
             </div>
-            <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl text-white'>{movie?.title || movie?.name || movie?.original_name}</h1>
-            <p className='max-w-xs md:max-w-lg lg:max-w-2xl text-xs md:text-xl lg:text-2xl text-white'>{movie?.overview}</p>
+
+            <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl'>{movie?.title || movie?.name || movie?.original_name}</h1>
+            <p className='max-w-xs md:max-w-lg lg:max-w-2xl text-xs text-shadow-md md:text-lg lg:text-2xl'>{movie?.overview}</p>
 
             <div>
-                <button  className='bg-transparent  border-solid border-2 border-[black] w-[200px] h-[56px] rounded-full'>Watch Now</button>
+                <button className='flex justify-center items-center space-x-2 bg-white/40 font-bold text-black w-[200px] h-[56px] rounded-full'>
+                    <TbPlayerPlay className='h-5 w-5 md:h8 md:w-8' /> Watch now
+                </button>
             </div>
         </div>
     )
