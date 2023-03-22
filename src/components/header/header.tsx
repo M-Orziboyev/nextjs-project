@@ -21,7 +21,7 @@ function Header() {
     }, [])
 
     return (
-        <header className={`${scrolled && 'bg-slate-500'}`}>
+        <header className={`${scrolled && 'bg-indigo-500 shadow-lg shadow-indigo-500/50 backdrop-blur-md bg-white/30'}`}>
             <div className="flex items-center space-x-2 md:space-x-10">
                 <Image src={"/logo.svg"} alt={"logo"} width={56} height={56} className="cursor-pointer object-contain" />
                 <ul className="space-x-4 md:flex hidden">

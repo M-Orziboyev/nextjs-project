@@ -1,13 +1,12 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { Header, Hero } from 'src/components'
+import { Header, Hero, Row } from 'src/components'
 import { IMovie } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
 
-export default function Home({trending}: HomeProps): JSX.Element {
-  console.log(trending[0].name);
-
-
+export default function Home({trending, topRated}: HomeProps): JSX.Element {
+  console.log(topRated);
+  
   return (
     <>
       <div className="relativ h-[200vh]" >
@@ -20,12 +19,8 @@ export default function Home({trending}: HomeProps): JSX.Element {
         <Header />
         <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
           <Hero trending={trending}/>
-          {/* Hero */}
           <section>
-            {/* Row */}
-            {/* BigRow */}
-            {/* Row */}
-            {/* BigRow */}
+            <Row title='Top Rated' movies={topRated}/>
           </section>
         </main>
       </div>
@@ -37,24 +32,17 @@ export default function Home({trending}: HomeProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const trending = await fetch(API_REQUEST.trending).then(res => res.json());
-
-  // if (trending.results.length) {
-  //     return {
-  //       redirect: {
-  //         destination: '/account'
-  //       }
-  // OR
-  // notFound: true 
-  //     }
-  //   }
+  const topRated = await fetch(API_REQUEST.top_rated).then(res => res.json());
 
   return {
     props: {
       trending: trending.results,
+      topRated: topRated.results
     },
   };
 };
 
 interface HomeProps {
   trending: IMovie[];
+  topRated: IMovie[];
 }

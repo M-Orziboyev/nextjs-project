@@ -4,6 +4,7 @@ import { IMovie } from '../interfaces/app.interface';
 import { HeroProps } from './hero.props';
 import { useState, useEffect } from 'react';
 import { TbPlayerPlay } from 'react-icons/tb';
+import ReactStars from 'react-stars'
 
 function Hero({ trending }: HeroProps): JSX.Element {
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
@@ -14,8 +15,8 @@ function Hero({ trending }: HeroProps): JSX.Element {
     }, [trending])
 
     return (
-        <div className='flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[65vh] lg:pb-12 lg:justify-end text-white'>
-            <div className='absolute top-0 left-0 -z-10 h-[95vh] w-full'>
+        <div className='flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[65vh] lg:pb-12 lg:center text-white'>
+            <div className='absolute top-0 left-0 -z-10 h-[102vh] w-full'>
                 <Image
                     src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`}
                     alt={movie.title}
@@ -23,15 +24,23 @@ function Hero({ trending }: HeroProps): JSX.Element {
                     className='object-cover'
                 />
             </div>
+                <div className='py-[4px]  px-[8px] text-center rounded-bl-[8px] text-black  rounded-br-[8px] bg-[#e5e5e5]/50 w-[111px]'>
+                    {movie.media_type}
+                </div>
 
-            <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl'>{movie?.title || movie?.name || movie?.original_name}</h1>
-            <p className='max-w-xs md:max-w-lg lg:max-w-2xl text-xs text-shadow-md md:text-lg lg:text-2xl'>{movie?.overview}</p>
+                <div className='flex items-center space-x-6'>
+                    <ReactStars edit={false} count={10} value={movie.vote_average} />
+                    <p>({movie.vote_count})</p>
+                </div>
 
-            <div>
-                <button className='flex justify-center items-center space-x-2 bg-white/40 font-bold text-black w-[200px] h-[56px] rounded-full'>
-                    <TbPlayerPlay className='h-5 w-5 md:h8 md:w-8' /> Watch now
-                </button>
-            </div>
+                <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl'>{movie?.title || movie?.name || movie?.original_name}</h1>
+                <p className='max-w-xs md:max-w-lg lg:max-w-2xl text-xs text-shadow-md md:text-lg lg:text-2xl'>{movie?.overview?.slice(0, 100)}...</p>
+
+                <div>
+                    <button className='flex justify-center items-center space-x-2 bg-white/40 font-bold text-black w-[200px] h-[56px] rounded-full'>
+                        <TbPlayerPlay className='h-5 w-5 md:h8 md:w-8' /> Watch now 
+                    </button>
+                </div>
         </div>
     )
 }
