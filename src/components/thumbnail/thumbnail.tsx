@@ -11,6 +11,9 @@ function Thumbnail({ movie }: thumbnailProps): JSX.Element {
                 fill
                 className='object-cover rounded-md md:rounded-sm hover:rounded-md md:hover:rounded-sm'
             />
+            <div className='absolute text-blue'>
+                {movie.media_type}
+            </div>
         </div>
     )
 }

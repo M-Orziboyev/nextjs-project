@@ -24,7 +24,7 @@ function Hero({ trending }: HeroProps): JSX.Element {
                     className='object-cover blur-sm brightness-50'
                 />
             </div>
-                <div className='py-[4px]  px-[8px] text-center rounded-bl-[8px] text-black  rounded-br-[8px] bg-[#e5e5e5]/50 w-[111px]'>
+                <div className='py-[4px]  px-[8px] text-center rounded-bl-[8px] text-black  rounded-tr-[8px] bg-[#e5e5e5]/50 w-[111px]'>
                     {movie.media_type}
                 </div>
 
