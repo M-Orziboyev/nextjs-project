@@ -4,7 +4,7 @@
 
 @layer base {
     body{
-        @apply bg-[#141414] !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-white/30
+        @apply bg-[#141414] !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-white/30 !scrollbar-corner-green-300 
     }
 }
 
