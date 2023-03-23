@@ -21,7 +21,7 @@ function Hero({ trending }: HeroProps): JSX.Element {
                     src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`}
                     alt={movie.title}
                     fill
-                    className='object-cover'
+                    className='object-cover blur-sm brightness-50'
                 />
             </div>
                 <div className='py-[4px]  px-[8px] text-center rounded-bl-[8px] text-black  rounded-br-[8px] bg-[#e5e5e5]/50 w-[111px]'>

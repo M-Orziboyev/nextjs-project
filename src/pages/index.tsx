@@ -17,8 +17,10 @@ export default function Home({trending, topRated}: HomeProps): JSX.Element {
           <link rel="icon" href="/logo.svg" />
         </Head>
         <Header />
-        <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
-          <Hero trending={trending}/>
+        <main className='relative pb-24 lg:space-y-24 '>
+          <div className='pl-4 lg:pl-16'>
+            <Hero trending={trending}/>
+          </div>
           <section>
             <Row title='Top Rated' movies={topRated}/>
           </section>
