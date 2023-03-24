@@ -3,7 +3,7 @@ import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 import Thumbnail from "../thumbnail/thumbnail";
 import { useRef, useState } from "react";
 
-function Row({ title, movies }: RowProps): JSX.Element {
+function Row({ title, movies, isBig = false }: RowProps): JSX.Element {
     const [moved, setMoved] = useState<boolean>(false);
     const carouseRef = useRef<HTMLDivElement>(null);
 
@@ -32,17 +32,17 @@ function Row({ title, movies }: RowProps): JSX.Element {
                     {title}
                 </h2>
             </div>
-            <div className="group relative ">
+            <div className="group relative mb-40">
                 <AiFillCaretLeft
                     onClick={() => handleClick("left")}
                     className={`${!moved && 'hidden'} md:ml-2 absolute top-0 bottom-0 left-2 z-40 m-auto h-6 w-6 cursor-pointer fill-white opacity-0 group-hover:opacity-100 hover:scale-150 transation duration-200 shadow `}
                 />
                 <div
                     ref={carouseRef}
-                    className="flex items-center scrollbar-hide overflow-hidden space-x-1 overflow-x-scroll md:space-x-4"
+                    className={`flex scrollbar-hide items-center ${!isBig && 'space-x-1 md:space-x-4'} overflow-hidden overflow-x-scroll`}
                 >
                     {movies.map((movie) => (
-                        <Thumbnail key={movie.id} movie={movie} />
+                        <Thumbnail key={movie.id} movie={movie} isBig={isBig}  />
                     ))}
                 </div>
                 <AiFillCaretRight

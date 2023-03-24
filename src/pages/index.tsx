@@ -23,6 +23,7 @@ export default function Home({trending, topRated}: HomeProps): JSX.Element {
           </div>
           <section>
             <Row title='Top Rated' movies={topRated}/>
+            <Row title='TV Shows' movies={topRated} />
           </section>
         </main>
       </div>
