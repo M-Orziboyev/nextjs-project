@@ -1,12 +1,9 @@
 import { image_base } from 'src/helpers/constants';
 import Image from 'next/image';
-import { thumbnailProps } from './thumbnail.props';
+import { ThumbnailProps } from './thumbnail.props';
 import ReactStars from 'react-stars';
 
-function Thumbnail({ movie, isBig= <i class="fa fa-bullseye" aria-hidden="true"></i> }: thumbnailProps): JSX.Element {
-
-    console.log(movie);
-
+function Thumbnail({ movie, isBig = false }: ThumbnailProps): JSX.Element {
     return (
         <div
             className={`relative ${isBig ? 'h-[400px] md:h-[500px] min-w-[350px] md:min-w-[470px]' : 'h-[330px] md:h-[440px] min-w-[200px] md:min-w-[292px]'
@@ -16,9 +13,9 @@ function Thumbnail({ movie, isBig= <i class="fa fa-bullseye" aria-hidden="true">
                 src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`}
                 alt={movie.title}
                 fill
-                className='object-cover rounded-md md:rounded-sm hover:rounded-md md:hover:rounded-sm'
-                priority
+                className='rounded-sm md:rounded object-cover'
             />
+
             <div className='absolute left-0 right-0 bottom-0 top-0 bg-black/40 w-full h-full' />
 
             <div className='absolute bottom-5 left-4 right-2'>

@@ -42,7 +42,7 @@ function Row({ title, movies, isBig = false }: RowProps): JSX.Element {
                     className={`flex scrollbar-hide items-center ${!isBig && 'space-x-1 md:space-x-4'} overflow-hidden overflow-x-scroll`}
                 >
                     {movies.map((movie) => (
-                        <Thumbnail key={movie.id} movie={movie} isBig={isBig}  />
+                        <Thumbnail key={movie.id} movie={movie} isBig={isBig} />
                     ))}
                 </div>
                 <AiFillCaretRight
