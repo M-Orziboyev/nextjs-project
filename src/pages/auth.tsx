@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from 'react';
+import { TextField } from "src/components";
+import { TextFieldProps } from '../components/text-field/text-field.props';
 
 const Auth = () => {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
@@ -23,7 +25,7 @@ const Auth = () => {
             <Image src={'https://assets.nflxext.com/ffe/siteui/vlv3/d0982892-13ac-4702-b9fa-87a410c1f2da/519e3d3a-1c8c-4fdb-8f8a-7eabdbe87056/AE-en-20220321-popsignuptwoweeks-perspective_alpha_website_large.jpg'} alt={'bg'} fill className='object-cover -z-10 !hidden sm:!inline opacity-60' />
             <Image
                 src={"/logo.svg"}
-                alt={"logoo"}
+                alt={"logo"}
                 width={80}
                 height={80}
                 className="absolute left-4 top-4 cursor-pointer object-contain"
@@ -35,12 +37,8 @@ const Auth = () => {
 
                 {auth == 'signin' ? (<h1 className="text-4xl font-semibold">Sign in</h1>) : <h1 className="text-4xl font-semibold">Sign Up</h1>}
                 <div className="space-y-4">
-                    <label className="inline-block w-full">
-                        <input type="text" placeholder="Email" className="input" />
-                    </label>
-                    <label className="inline-block w-full">
-                        <input type="text" placeholder="Password" className="input" />
-                    </label>
+                    <TextField placeholder="Email" type="text"/>
+                    <TextField placeholder="Password" type="password"/>
                 </div>
                 {auth === 'signin' ? (
                     <div className="text-[gray]">
