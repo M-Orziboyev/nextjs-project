@@ -3,16 +3,22 @@
 @tailwind utilities;
 
 @layer base {
-    body{
-        @apply bg-[#141414] text-white !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-white/30 !scrollbar-corner-green-300 
+    body {
+        @apply bg-[#141414] text-white !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-white/30 !scrollbar-corner-green-300;
+    }
+
+    header {
+        @apply flex top-0 w-full z-50 fixed items-center justify-between px-4 py-4 transition-all lg:py-6;
     }
 }
 
 @layer components {
-    .navLink{
-        @apply cursor-pointer text-sm font-light text-[#fff] hover:text-black
+    .navLink {
+        @apply cursor-pointer text-sm font-light text-[#fff] hover:text-black;
     }
-    header{
-        @apply flex top-0 w-full z-50 fixed items-center justify-between px-4 py-4 transition-all lg:py-6
+
+    .input {
+        @apply w-full rounded bg-[#333] px-5 py-4 placeholder-[gray] outline-none focus:bg-[#454545];
     }
+
 }

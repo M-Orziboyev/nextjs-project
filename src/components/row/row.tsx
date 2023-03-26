@@ -35,7 +35,7 @@ function Row({ title, movies, isBig = false }: RowProps): JSX.Element {
             <div className="group relative mb-40">
                 <AiFillCaretLeft
                     onClick={() => handleClick("left")}
-                    className={`${!moved && 'hidden'} md:ml-2 absolute top-0 bottom-0 left-2 z-40 m-auto h-6 w-6 cursor-pointer fill-white opacity-0 group-hover:opacity-100 hover:scale-150 transation duration-200 shadow `}
+                    className={`${!moved && 'hidden'} md:ml-2 absolute top-0 bottom-0 left-2 z-40 m-auto h-6 w-6 cursor-pointer fill-white group-hover:opacity-100 groupsm:opacity-100 hover:scale-150 transation duration-200 shadow `}
                 />
                 <div
                     ref={carouseRef}
@@ -47,7 +47,7 @@ function Row({ title, movies, isBig = false }: RowProps): JSX.Element {
                 </div>
                 <AiFillCaretRight
                     onClick={() => handleClick("right")}
-                    className="md:ml-2 absolute top-0 bottom-0 right-2 z-40 m-auto h-6 w-6 cursor-pointer fill-white opacity-0 group-hover:opacity-100 hover:scale-150 transation duration-200 shadow"
+                    className="md:ml-2 absolute top-0 bottom-0 right-2 z-40 m-auto h-6 w-6 cursor-pointer fill-white group-hover:opacity-100 hover:scale-150 transation duration-200 shadow"
                 />
             </div>
         </>
