@@ -23,7 +23,7 @@ const Auth = () => {
             <Image src={'https://assets.nflxext.com/ffe/siteui/vlv3/d0982892-13ac-4702-b9fa-87a410c1f2da/519e3d3a-1c8c-4fdb-8f8a-7eabdbe87056/AE-en-20220321-popsignuptwoweeks-perspective_alpha_website_large.jpg'} alt={'bg'} fill className='object-cover -z-10 !hidden sm:!inline opacity-60' />
             <Image
                 src={"/logo.svg"}
-                alt={"logo"}
+                alt={"logoo"}
                 width={80}
                 height={80}
                 className="absolute left-4 top-4 cursor-pointer object-contain"
