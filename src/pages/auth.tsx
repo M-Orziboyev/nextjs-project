@@ -2,8 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from 'react';
 import { TextField } from "src/components";
-import { TextFieldProps } from '../components/text-field/text-field.props';
-
+import { Formik, Form } from 'formik'
+import * as Yup from 'yup';
 const Auth = () => {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
 
@@ -11,6 +11,14 @@ const Auth = () => {
         setAuth(state)
     }
 
+    const onSubmit = (formData) => {
+        console.log(formData);
+    } 
+
+    const validation = Yup.object({
+        email: Yup.string().email('Enter valid email').required('Email is required'),
+        password: Yup.string().min(4, '4 minimum character').required('Password is required')
+    })
     return (
         <div className='relative flex h-screen w-screen flex-col md:items-center md:justify-center bg-black md:bg-transparent'>
             <Head>
@@ -30,29 +38,31 @@ const Auth = () => {
                 height={80}
                 className="absolute left-4 top-4 cursor-pointer object-contain"
             />
-            <form
-                action=""
-                className="relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:mx-14"
+            <div className="relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:mx-14"
             >
 
                 {auth == 'signin' ? (<h1 className="text-4xl font-semibold">Sign in</h1>) : <h1 className="text-4xl font-semibold">Sign Up</h1>}
-                <div className="space-y-4">
-                    <TextField placeholder="Email" type="text"/>
-                    <TextField placeholder="Password" type="password"/>
-                </div>
-                {auth === 'signin' ? (
-                    <div className="text-[gray]">
-                        <button type="submit" className="w-full text-white bg-[#E10856] py-3 font-semibold">Sign In</button>
-                        Not yet account? <button type="button" className="text-white hover:underline" onClick={() => toggleAuth('signup')}>Sign Up Now</button>
-                    </div>
+                <Formik  initialValues={{email: '', password: ''}} onSubmit={onSubmit} validationSchema={validation}>
+                    <Form>
+                        <div className="space-y-4">
+                            <TextField name='email' placeholder="Email" type="text" />
+                            <TextField name="password" placeholder="Password" type="password" />
+                        </div>
+                        {auth === 'signin' ? (
+                            <div className="text-[gray]">
+                                <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">Sign In</button>
+                                Not yet account? <button type="button" className="text-white  hover:underline" onClick={() => toggleAuth('signup')}>Sign Up Now</button>
+                            </div>
 
-                ) :
-                    <div className="text-[gray]">
-                        <button type="submit" className="w-full text-white bg-[#E10856] py-3 font-semibold">Sign Up</button>
-                        Already have account <button type="button" className="text-white hover:underline" onClick={() => toggleAuth('signin')}>Sign In</button>
-                    </div>
-                }
-            </form>
+                        ) :
+                            <div className="text-[gray]">
+                                <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">Sign Up</button>
+                                Already have account <button type="button" className="text-white mt-4 hover:underline" onClick={() => toggleAuth('signin')}>Sign In</button>
+                            </div>
+                        }
+                    </Form>
+                </Formik>
+            </div>
         </div>
     );
 };
