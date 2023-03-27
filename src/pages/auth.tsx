@@ -1,23 +1,29 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { TextField } from "src/components";
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
+import { AuthContext } from '../context/auth.context';
 const Auth = () => {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
+    const { error, isLoading, logout, signIn, signUp } = useContext(AuthContext)
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)
     }
 
-    const onSubmit = (formData) => {
-        console.log(formData);
-    } 
+    const onSubmit = (formData: { email: string, password: string }) => {
+        if (auth === 'signup') {
+            signUp(formData.email, formData.password)
+        } else {
+            signIn(formData.email, formData.password)
+        }
+    }
 
     const validation = Yup.object({
         email: Yup.string().email('Enter valid email').required('Email is required'),
-        password: Yup.string().min(4, '4 minimum character').required('Password is required')
+        password: Yup.string().min(6, '6 minimum character').required('Password is required')
     })
     return (
         <div className='relative flex h-screen w-screen flex-col md:items-center md:justify-center bg-black md:bg-transparent'>
@@ -42,21 +48,23 @@ const Auth = () => {
             >
 
                 {auth == 'signin' ? (<h1 className="text-4xl font-semibold">Sign in</h1>) : <h1 className="text-4xl font-semibold">Sign Up</h1>}
-                <Formik  initialValues={{email: '', password: ''}} onSubmit={onSubmit} validationSchema={validation}>
+                {error && <p className="text-red-500 font-semibold text-center">{error}</p>}
+                <Formik initialValues={{ email: '', password: '' }} onSubmit={onSubmit} validationSchema={validation}>
                     <Form>
                         <div className="space-y-4">
                             <TextField name='email' placeholder="Email" type="text" />
                             <TextField name="password" placeholder="Password" type="password" />
                         </div>
+                        <button type="submit" disabled={isLoading} className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">
+                            {isLoading ? 'Loading...' : auth === 'signin' ? "Sign In" : 'Sign Up'}
+                        </button>
                         {auth === 'signin' ? (
                             <div className="text-[gray]">
-                                <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">Sign In</button>
                                 Not yet account? <button type="button" className="text-white  hover:underline" onClick={() => toggleAuth('signup')}>Sign Up Now</button>
                             </div>
 
                         ) :
                             <div className="text-[gray]">
-                                <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">Sign Up</button>
                                 Already have account <button type="button" className="text-white mt-4 hover:underline" onClick={() => toggleAuth('signin')}>Sign In</button>
                             </div>
                         }
