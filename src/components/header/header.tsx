@@ -1,10 +1,12 @@
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai"
+import { useEffect, useState, useContext } from 'react';
+import { AiOutlineSearch, AiOutlineUser, AiOutlineLogout } from "react-icons/ai"
 import { BsBellSlash } from 'react-icons/bs'
+import { AuthContext } from '../../context/auth.context';
 
 function Header() {
     const [scrolled, setScrolled] = useState(false)
+    const { logout } = useContext(AuthContext)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,6 +39,7 @@ function Header() {
                 <p className="hidden lg:inline text-white cursor-pointer">Kids</p>
                 <BsBellSlash className="h-6 w-6 fill-slate-50 cursor-pointer" />
                 <AiOutlineUser className="h-6 w-6 fill-slate-50 cursor-pointer" />
+                <AiOutlineLogout className="h-6 w-6 fill-slate-50 cursor-pointer" onClick={logout}/>
             </div>
         </header>
     )

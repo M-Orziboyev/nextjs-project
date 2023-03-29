@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
 import { auth } from 'src/firebase'
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -34,7 +34,7 @@ export const useAuth = () => {
         signOut(auth).then(() => setUser(null)).catch(error => setError(error.message))
     }
 
-    return {error, isLoading, signIn, signUp, logout, user}
+    return {error, isLoading, signIn, signUp, logout, user, setUser, setIsLoading}
 }
 
 export default useAuth

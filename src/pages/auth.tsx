@@ -5,13 +5,20 @@ import { TextField } from "src/components";
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
 import { AuthContext } from '../context/auth.context';
+import { useRouter } from 'next/router';
+
 const Auth = () => {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
-    const { error, isLoading, logout, signIn, signUp } = useContext(AuthContext)
+    const { error, isLoading, signIn, signUp, user } = useContext(AuthContext)
+    const router = useRouter()
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)
     }
+
+    if (user) router.push('/');
+    if (!isLoading) return <>Loading...</>;
+
 
     const onSubmit = (formData: { email: string, password: string }) => {
         if (auth === 'signup') {
@@ -47,7 +54,7 @@ const Auth = () => {
             <div className="relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:mx-14"
             >
 
-                {auth == 'signin' ? (<h1 className="text-4xl font-semibold">Sign in</h1>) : <h1 className="text-4xl font-semibold">Sign Up</h1>}
+                <h1 className='text-4xl font-semibold'>{auth === 'signup' ? 'Sign up' : 'Sign In'}</h1>
                 {error && <p className="text-red-500 font-semibold text-center">{error}</p>}
                 <Formik initialValues={{ email: '', password: '' }} onSubmit={onSubmit} validationSchema={validation}>
                     <Form>
@@ -55,8 +62,8 @@ const Auth = () => {
                             <TextField name='email' placeholder="Email" type="text" />
                             <TextField name="password" placeholder="Password" type="password" />
                         </div>
-                        <button type="submit" disabled={isLoading} className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">
-                            {isLoading ? 'Loading...' : auth === 'signin' ? "Sign In" : 'Sign Up'}
+                        <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">
+                            {!isLoading ? 'Loading...' : auth === 'signin' ? "Sign In" : 'Sign Up'}
                         </button>
                         {auth === 'signin' ? (
                             <div className="text-[gray]">

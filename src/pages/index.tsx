@@ -3,11 +3,18 @@ import Head from 'next/head'
 import { Header, Hero, Row } from 'src/components'
 import { IMovie } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
+import { useInfoStore } from '../store/index';
 
-export default function Home({trending, topRated, tvTop_rated, popular, discover,documentary,comedy,family,history}: HomeProps): JSX.Element {
-
-  console.log(topRated);
+export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history }: HomeProps): JSX.Element {
+  const { isLoading } = useContext(AuthContext)
+  const {setModal, modal} = useInfoStore()
+  console.log(modal);
   
+  if(isLoading) return <>{null}</>
+
+
   return (
     <>
       <div className="relativ min-h-screen" >
@@ -20,18 +27,19 @@ export default function Home({trending, topRated, tvTop_rated, popular, discover
         <Header />
         <main className='relative pb-24 lg:space-y-24 '>
           <div className='pl-4 lg:pl-16'>
-            <Hero trending={trending}/>
+            <Hero trending={trending} />
           </div>
           <section>
-            <Row title='Top Rated' movies={topRated}/>
-            <Row title='TV Shows' movies={tvTop_rated} isBig={true}/>
-            <Row title='Popular Movies' movies={popular}/>
-            <Row title='Discover Movies' movies={discover} isBig={true}/>
-            <Row title='Documentary' movies={documentary}/>
-            <Row title='Comedy' movies={comedy} isBig={true}/>
-            <Row title='Family' movies={family}/>
-            <Row title='History' movies={history} isBig={true}/>
+            <Row title='Top Rated' movies={topRated} />
+            <Row title='TV Shows' movies={tvTop_rated} isBig={true} />
+            <Row title='Popular Movies' movies={popular} />
+            <Row title='Discover Movies' movies={discover} isBig={true} />
+            <Row title='Documentary' movies={documentary} />
+            <Row title='Comedy' movies={comedy} isBig={true} />
+            <Row title='Family' movies={family} />
+            <Row title='History' movies={history} isBig={true} />
           </section>
+          <button onClick={()=> setModal(true)}>Click</button>
         </main>
       </div>
     </>
