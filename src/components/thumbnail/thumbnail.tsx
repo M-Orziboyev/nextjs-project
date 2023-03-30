@@ -2,10 +2,17 @@ import { image_base } from 'src/helpers/constants';
 import Image from 'next/image';
 import { ThumbnailProps } from './thumbnail.props';
 import ReactStars from 'react-stars';
+import { useInfoStore } from '../../store/index';
 
 function Thumbnail({ movie, isBig = false }: ThumbnailProps): JSX.Element {
+    const {setModal, setCurrentMovie } = useInfoStore()
+    const handleModal = () => {
+        setModal(true)
+        setCurrentMovie(movie)
+    }
     return (
         <div
+        onClick={handleModal}
             className={`relative ${isBig ? 'h-[400px] md:h-[500px] min-w-[350px] md:min-w-[470px]' : 'h-[330px] md:h-[440px] min-w-[200px] md:min-w-[292px]'
                 }  cursor-pointer transition duration-200 ease-out md:hover:scale-110`}
         >
