@@ -16,9 +16,7 @@ const Auth = () => {
         setAuth(state)
     }
 
-    if (user) router.push('/');
-    if (!isLoading) return <>Loading...</>;
-
+    if (user) router.push('/');  
 
     const onSubmit = (formData: { email: string, password: string }) => {
         if (auth === 'signup') {
