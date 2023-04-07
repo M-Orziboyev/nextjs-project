@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { Header, Hero, Modal, Row } from 'src/components'
+import { Header, Hero, Modal, Row, SubscriptionPlan } from 'src/components'
 import { IMovie } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
 import { useContext } from 'react';
@@ -9,11 +9,12 @@ import { useInfoStore } from '../store/index';
 
 export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history }: HomeProps): JSX.Element {
   const { isLoading } = useContext(AuthContext)
-  const {setModal, modal} = useInfoStore()
-  console.log(modal);
-  
-  if(isLoading) return <>{null}</>
+  const { setModal, modal } = useInfoStore()
+  const subscription = false;
 
+
+  if (isLoading) return <>{null}</>
+  if (!subscription) return <SubscriptionPlan />
 
   return (
     <>
@@ -49,7 +50,7 @@ export default function Home({ trending, topRated, tvTop_rated, popular, discove
 
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const [trending, topRated, tvTop_rated,popular,discover,documentary,comedy,family, history] = await Promise.all([
+  const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history] = await Promise.all([
     fetch(API_REQUEST.trending).then(res => res.json()),
     fetch(API_REQUEST.top_rated).then(res => res.json()),
     fetch(API_REQUEST.tv_top_rated).then(res => res.json()),
