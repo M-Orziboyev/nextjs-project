@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import { BiPlus } from 'react-icons/bi';
 import { BsVolumeMute, BsVolumeDown } from 'react-icons/bs';
 import { AiOutlineLike } from 'react-icons/ai';
-import {Element} from 'src/interfaces/app.interface';
+import { Element } from '../interfaces/app.interface'
 
 const Modal = () => {
     const { modal, setModal, currentMovie } = useInfoStore();
