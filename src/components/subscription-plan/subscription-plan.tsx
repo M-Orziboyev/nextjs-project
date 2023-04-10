@@ -36,7 +36,14 @@ const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
                             <div className="border-[1px] border-white/20 mt-4" />
                             <button className="mt-4 bg-red-600 hover:opacity-75 w-full py-4 rounded font-semibold">BUY PLAN</button>
                             <div className="my-4 flex flex-col space-y-2">
-                                
+                                {product.metadata.adv.split(', ').map((c, id) => (
+                                    <div key={c} className='flex space-x-2 items-center'>
+                                        {id == 0 && <RiVipCrown2Line className={'w-5 h-5'}/>}
+                                        {id == 1 && <AiOutlineHourglass className={'w-5 h-5'}/>}
+                                        {id == 2 && <AiOutlineVideoCameraAdd className={'w-5 h-5'}/>}
+                                        <p>{c}.</p>
+                                    </div>
+                                ))}
                                 {/* <div className="flex space-x-2 items-center">
                                     <AiOutlineHourglass className="w-5 h-5" />
                                     <p>100 hour video.</p>
