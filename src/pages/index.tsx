@@ -1,20 +1,21 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { Header, Hero, Modal, Row, SubscriptionPlan } from 'src/components'
-import { IMovie } from 'src/components/interfaces/app.interface';
+import { IMovie, Product } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
 import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { useInfoStore } from '../store/index';
 
-export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history }: HomeProps): JSX.Element {
+export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products }: HomeProps): JSX.Element {
   const { isLoading } = useContext(AuthContext)
   const { setModal, modal } = useInfoStore()
   const subscription = false;
+console.log(products);
 
 
   if (isLoading) return <>{null}</>
-  if (!subscription) return <SubscriptionPlan />
+  if (!subscription) return <SubscriptionPlan products={products} />
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function Home({ trending, topRated, tvTop_rated, popular, discove
 
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history] = await Promise.all([
+  const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products] = await Promise.all([
     fetch(API_REQUEST.trending).then(res => res.json()),
     fetch(API_REQUEST.top_rated).then(res => res.json()),
     fetch(API_REQUEST.tv_top_rated).then(res => res.json()),
@@ -59,7 +60,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     fetch(API_REQUEST.documentary).then(res => res.json()),
     fetch(API_REQUEST.comedy).then(res => res.json()),
     fetch(API_REQUEST.family).then(res => res.json()),
-    fetch(API_REQUEST.history).then(res => res.json())
+    fetch(API_REQUEST.history).then(res => res.json()),
+    fetch(API_REQUEST.products_list).then(res => res.json())
   ])
 
   return {
@@ -73,6 +75,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
       comedy: comedy.results,
       family: family.results,
       history: history.results,
+      products: products.products.data,
     },
   };
 };
@@ -87,4 +90,5 @@ interface HomeProps {
   comedy: IMovie[];
   family: IMovie[];
   history: IMovie[];
+  products: Product[],
 }

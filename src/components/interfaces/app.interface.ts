@@ -21,3 +21,15 @@ export interface IMovie {
 export interface Element {
 	type: 'Trailer' | 'Clip' | 'Opening credits' | 'Behind the scenes'
 }
+export interface Product {
+	default_price:{
+		id: string,
+		unit_amount: number,
+	},
+	id: string,
+	metadata: {
+		adv: string,
+	},
+	name: string;
+	images: string[]
+}
