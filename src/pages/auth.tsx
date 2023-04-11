@@ -1,15 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { TextField } from "src/components";
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
-import { AuthContext } from '../context/auth.context';
 import { useRouter } from 'next/router';
+import useAuth from '../hooks/useAuth';
 
 const Auth = () => {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
-    const { error, isLoading, signIn, signUp, user } = useContext(AuthContext)
+    const { error, isLoading, signIn, signUp, user, setIsLoading } = useAuth()
     const router = useRouter()
 
     const toggleAuth = (state: 'signup' | 'signin') => {
@@ -18,8 +18,16 @@ const Auth = () => {
 
     if (user) router.push('/');  
 
-    const onSubmit = (formData: { email: string, password: string }) => {
+    const onSubmit = async (formData: { email: string, password: string }) => {
         if (auth === 'signup') {
+            setIsLoading(true);
+            const response = await fetch('/api/customers', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email: formData.email}),
+            })
+            const data = await response.json()
+            console.log(data);
             signUp(formData.email, formData.password)
         } else {
             signIn(formData.email, formData.password)
@@ -61,7 +69,7 @@ const Auth = () => {
                             <TextField name="password" placeholder="Password" type="password" />
                         </div>
                         <button type="submit" className="w-full text-white mt-4 bg-[#E10856] py-3 font-semibold">
-                            {!isLoading ? 'Loading...' : auth === 'signin' ? "Sign In" : 'Sign Up'}
+                            {isLoading ? 'Loading...' : auth === 'signin' ? 'Sign In' : 'Sign Up'}
                         </button>
                         {auth === 'signin' ? (
                             <div className="text-[gray]">
