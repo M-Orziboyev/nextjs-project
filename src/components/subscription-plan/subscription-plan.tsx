@@ -1,12 +1,9 @@
 import Image from "next/image"
 import useAuth from '../../hooks/useAuth';
-import { RiVipCrown2Line } from 'react-icons/ri'
-import { AiOutlineHourglass, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { SubscriptionPlanProps } from "./subscription-plan-props";
 import PlanCards from "../plan-cards/plan-cards";
 
 const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
-    
     const { logout } = useAuth()
     return (
         <div className="min-h-screen">
