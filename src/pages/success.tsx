@@ -11,7 +11,7 @@ function Success() {
             </div>
             <div className="h-[90vh] flex flex-col justify-center items-center">
                 <AiFillCheckCircle className="w-20 h-20 text-green-500" />
-                <h1 className="text-2xl md:text-5xl mt-5">Subscription Completed</h1>
+                <h1 className="text-2xl md:text-5xl mt-5">Subscriptions Completed</h1>
                 <Link href='/'>
                     <button className="mt-4 bg-green-500 rounded py-4 px-10">Home</button>
                 </Link>
