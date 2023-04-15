@@ -7,7 +7,7 @@ function Success() {
     return (
         <>
             <div className="flex justify-start">
-                <Image src={'/logo.svg'} alt={'logo'} width={56} height={56} className={'cursor-pointer object-contain'} />
+                <Image src={'/logo.svg'} alt={'logo 1'} width={56} height={56} className={'cursor-pointer object-contain'} />
             </div>
             <div className="h-[90vh] flex flex-col justify-center items-center">
                 <AiFillCheckCircle className="w-20 h-20 text-green-500" />

@@ -16,9 +16,9 @@ function Success() {
                 <Link href='/'>
                     <button className="mt-4 bg-[#E10856] rounded py-4 px-7">Choose Plan</button>
                 </Link>
-            </div>
-        </>
-    )
-}
+            </div> 
+        </>  
+    )  
+}   
 
 export default Success    
