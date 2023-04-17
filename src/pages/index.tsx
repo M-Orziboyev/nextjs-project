@@ -7,15 +7,13 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { useInfoStore } from '../store/index';
 
-export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products }: HomeProps): JSX.Element {
+export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products, subscription }: HomeProps): JSX.Element {
   const { isLoading } = useContext(AuthContext)
-  const { setModal, modal } = useInfoStore()
-  const subscription = false;
-console.log(products);
+  const { modal } = useInfoStore()
 
 
   if (isLoading) return <>{null}</>
-  if (!subscription) return <SubscriptionPlan products={products} />
+  if (!subscription.length) return <SubscriptionPlan products={products} />
 
   return (
     <>
@@ -50,8 +48,9 @@ console.log(products);
 
 
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products] = await Promise.all([
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ req }) => {
+  const user_id = req.cookies.user_id
+  const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products, subscription] = await Promise.all([
     fetch(API_REQUEST.trending).then(res => res.json()),
     fetch(API_REQUEST.top_rated).then(res => res.json()),
     fetch(API_REQUEST.tv_top_rated).then(res => res.json()),
@@ -61,7 +60,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     fetch(API_REQUEST.comedy).then(res => res.json()),
     fetch(API_REQUEST.family).then(res => res.json()),
     fetch(API_REQUEST.history).then(res => res.json()),
-    fetch(API_REQUEST.products_list).then(res => res.json())
+    fetch(API_REQUEST.products_list).then(res => res.json()),
+    fetch(`${API_REQUEST.subscription}/${user_id}`).then(res => res.json())
   ])
 
   return {
@@ -76,6 +76,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
       family: family.results,
       history: history.results,
       products: products.products.data,
+      subscription: subscription.subscription.data,
     },
   };
 };
@@ -91,4 +92,5 @@ interface HomeProps {
   family: IMovie[];
   history: IMovie[];
   products: Product[],
+  subscription: string[]
 }
