@@ -21,7 +21,7 @@ export const useAuth = () => {
             fetch('/api/customers', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: res.user.email }),
+                body: JSON.stringify({ email: res.user.email, user_id: res.user.uid } ),
             });
             Cookies.set('user_id', res.user.uid)
             setIsLoading(true)
