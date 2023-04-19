@@ -41,6 +41,7 @@ export const useAuth = () => {
         setIsLoading(true)
         signOut(auth).then(() => {
             setUser(null);
+            router.push('/auth')
             Cookies.remove('user_id');
         }
         ).catch(error => setError(error.message))

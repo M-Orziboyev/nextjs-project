@@ -41,10 +41,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => onAuthStateChanged(auth, user => {
         if (user) {
             setUser(user)
-            setIsLoading(false)
         } else {
             setUser(null)
-            setIsLoading(true)
             router.push("/auth")
         }
         setInitialLoader(false)
@@ -52,7 +50,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }), [])
 
 
-    return <AuthContext.Provider value={value}>{!initialLoader ? children : 'Loading...'}</AuthContext.Provider>
+    return <AuthContext.Provider value={value}>{!initialLoader ? children : null}</AuthContext.Provider>
 }
 
 export default AuthContextProvider

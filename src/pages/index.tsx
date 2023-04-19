@@ -3,16 +3,12 @@ import Head from 'next/head'
 import { Header, Hero, Modal, Row, SubscriptionPlan } from 'src/components'
 import { IMovie, Product } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
-import { useContext } from 'react';
-import { AuthContext } from '../context/auth.context';
 import { useInfoStore } from '../store/index';
 
 export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products, subscription }: HomeProps): JSX.Element {
-  const { isLoading } = useContext(AuthContext)
   const { modal } = useInfoStore()
 
 
-  if (isLoading) return <>{null}</>
   if (!subscription.length) return <SubscriptionPlan products={products} />
 
   return (
@@ -49,7 +45,12 @@ export default function Home({ trending, topRated, tvTop_rated, popular, discove
 
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ req }) => {
-  const user_id = req.cookies.user_id
+  const user_id = req.cookies.user_id;
+  if(!user_id){
+    return {
+      redirect: { destination: '/auth', permanent: false},
+    }
+  }
   const [trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products, subscription] = await Promise.all([
     fetch(API_REQUEST.trending).then(res => res.json()),
     fetch(API_REQUEST.top_rated).then(res => res.json()),
