@@ -36,16 +36,16 @@ export interface Product {
 }
 
 export interface Subscription {
-    current_period_start:number,
+    current_period_start: number,
     id: string,
-    current_period_end:number,
-    plan:{
+    current_period_end: number,
+    plan: {
         amount: true,
-        active:boolean,
+        active: boolean,
         nickname: string,
     },
-    default_payment_method:{
-        card:{
+    default_payment_method: {
+        card: {
             brand: string,
             exp_month: number,
             exp_year: number,
@@ -54,5 +54,18 @@ export interface Subscription {
     },
     customer: {
         email: string,
+        metadata: {
+            user_id: string,
+        }
+        invoice_settings: {
+            default_payment_method: {
+                card: {
+                    brand: string,
+                    exp_month: number,
+                    exp_year: number,
+                    last4: number,
+                }
+            },
+        }
     }
 }

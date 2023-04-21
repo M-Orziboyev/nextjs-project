@@ -12,8 +12,8 @@ const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
                 <div onClick={logout} className="cursor-pointer hover:underline">Logout</div>
             </div>
             <div className="flex flex-col space-y-4 text-center pt-5">
-                <h1 className="text-2xl md:text-5xl text-shadow-sm">Fixeble pricing for teams of any size.</h1>
-                <p className="teext-xl text-shadow-sm">Relaxing with wathching with your favourites movies and tv</p>
+                <h1 className="text-2xl md:text-5xl text-shadow-sm">Fixable pricing for teams of any size.</h1>
+                <p className="teext-xl text-shadow-sm">Relaxing with watching with your favourites movies and tv</p>
             </div>
             <div className=" flex justify-center items-center py-20">
                 <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">

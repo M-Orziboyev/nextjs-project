@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return res.status(400).json({ message: result.message })
         }
     } else {
-        res.status(400).json({ message: 'Mehtod not allowed' });
+        res.status(400).json({ message: 'Method not allowed' });
     }
 }
 interface Data {
