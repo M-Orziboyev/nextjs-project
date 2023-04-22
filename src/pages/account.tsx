@@ -4,18 +4,11 @@ import {AiOutlineUser} from "react-icons/ai";
 import Link from "next/link";
 import {MdSubscriptions} from "react-icons/md";
 import {MembershipPlan} from "../components";
-import {GetServerSideProps} from "next";
-import {API_REQUEST} from "../services/api.service";
-import {Subscription} from "../components/interfaces/app.interface";
-import moment from "moment";
-import useAuth from "../hooks/useAuth";
 
-function Account({subscription} : AccountProps) {
-    const {logout} = useAuth()
 
-    console.log(subscription)
-    // @ts-ignore
-    // @ts-ignore
+function Account() {
+
+
     return (
         <>
             <Head>
@@ -42,56 +35,25 @@ function Account({subscription} : AccountProps) {
                     <h1 className="text-3xl md:text-4xl">Account</h1>
                     <div className='-ml-1 flex items-center gap-x-1.5'>
                         <MdSubscriptions className='w-5 h-5 text-red-500'/>
-                        <p className='font-semibold text-md text-[#555]'>Member since {moment(subscription.current_period_start * 1000).format('DD MMM, YYYY' )} </p>
+                        <p className='font-semibold text-md text-[#555]'>Member since 13 February, 2023</p>
                     </div>
                 </div>
 
-                <MembershipPlan subscription={subscription}/>
+                <MembershipPlan />
 
                 <div
                     className='mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:bordder-x-0 md:border-t md:border-b-0 md:pb-0'>
                     <h4 className='text-lg text-[grey]'>Plan Details</h4>
-                    <div className='col-span-2 font-medium'>{subscription.plan.nickname}</div>
+                    <div className='col-span-2 font-medium'>Premium</div>
                     <p className='cursor-pointer text-blue-700 md:text-right hover:underline '>Change Plan</p>
                 </div>
-                <div
-                    className='mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:bordder-x-0 md:border-t md:border-b-0 md:pb-0'>
+                <div className='mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:bordder-x-0 md:border-t md:border-b-0 md:pb-0'>
                     <h4 className='text-lg text-[grey]'>Settings</h4>
-                    <p className='col-span-3 cursor-pointer text-blue-700 hover:underline' onClick={logout}>Sign in of all devices</p>
+                    <p className='col-span-3 cursor-pointer text-blue-700 hover:underline'>Sign in of all devices</p>
                 </div>
             </main>
         </>
     )
 }
 
-export default Account;
-
-export const getServerSideProps: GetServerSideProps<AccountProps> = async ({req}) => {
-    const user_id = req.cookies.user_id;
-
-    if (!user_id) {
-        return {
-            redirect: {destination: '/auth', permanent: false},
-        }
-
-    }
-    const subscription = await fetch(`${API_REQUEST.subscription}/${user_id}`).then(res => res.json());
-
-    if(!subscription.subscription.data.length){
-        return{
-            redirect:{
-                destination:'/',
-                permanent:false
-            }
-        }
-    }
-    return {
-        props: {
-            subscription: subscription.subscription.data[0],
-        },
-    }
-};
-
-interface AccountProps {
-    subscription: Subscription;
-}
+export default Account
