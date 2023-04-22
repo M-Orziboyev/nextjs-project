@@ -2,7 +2,7 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { createContext, ReactNode, useMemo, useEffect, useState } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 import { auth } from 'src/firebase';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 interface AuthContextState {
     isLoading: boolean,
