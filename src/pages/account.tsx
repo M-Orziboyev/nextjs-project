@@ -8,8 +8,10 @@ import {GetServerSideProps} from "next";
 import {API_REQUEST} from "../services/api.service";
 import {Subscription} from "../components/interfaces/app.interface";
 import moment from "moment";
+import useAuth from "../hooks/useAuth";
 
 function Account({subscription} : AccountProps) {
+    const {logout} = useAuth()
 
     console.log(subscription)
     // @ts-ignore
@@ -55,7 +57,7 @@ function Account({subscription} : AccountProps) {
                 <div
                     className='mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:bordder-x-0 md:border-t md:border-b-0 md:pb-0'>
                     <h4 className='text-lg text-[grey]'>Settings</h4>
-                    <p className='col-span-3 cursor-pointer text-blue-700 hover:underline'>Sign in of all devices</p>
+                    <p className='col-span-3 cursor-pointer text-blue-700 hover:underline' onClick={logout}>Sign in of all devices</p>
                 </div>
             </main>
         </>

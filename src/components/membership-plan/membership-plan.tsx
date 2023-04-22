@@ -45,11 +45,11 @@ const MembershipPlan = ({subscription}: MembershipPlanProps) => {
                     <div>
                         <div className='flex items-center gap-2'>
                             <span
-                                className="py-2 px-3 uppercase rounded bg-white/20">{subscription.customer.invoice_settings.default_payment_method.card.brand}</span>
+                                className="py-2 px-3 uppercase rounded bg-white/20">{subscription.default_payment_method ? subscription.default_payment_method.card.brand : subscription.customer.invoice_settings.default_payment_method.card.brand}</span>
                             **** **** **** {subscription.customer.invoice_settings.default_payment_method.card.last4}
                         </div>
                         <p className="mt-4">Your next billing date
-                            is {moment(subscription.current_period_end * 1000).format('DD MMM, yyyy')}</p>
+                            is {moment(subscription.default_payment_method ? subscription.default_payment_method.card.last4 : subscription.current_period_end * 1000).format('DD MMM, yyyy')}</p>
                     </div>
                     <div className="md:text-right">
                         {isLoading ? "Loading..." :
