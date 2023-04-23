@@ -45,6 +45,7 @@ export default function Home({
                 <Header/>
                 <main className='relative pb-24 lg:space-y-24 '>
                     <div className='pl-4 lg:pl-16'>
+
                         <Hero trending={trending}/>
                     </div>
                     <section>
