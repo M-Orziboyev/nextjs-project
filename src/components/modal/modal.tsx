@@ -1,18 +1,22 @@
 import MuiModal from '@mui/material/Modal';
 import { useInfoStore } from 'src/store';
 import { FaPause, FaPlay, FaTimes } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import ReactPlayer from 'react-player';
 import { BiPlus } from 'react-icons/bi';
 import { BsVolumeMute, BsVolumeDown } from 'react-icons/bs';
 import { AiOutlineLike } from 'react-icons/ai';
 import { Element } from '../interfaces/app.interface'
+import {addDoc, collection} from "@firebase/firestore";
+import {db} from "../../firebase";
+import {AuthContext} from "../../context/auth.context";
 
 const Modal = () => {
     const { modal, setModal, currentMovie } = useInfoStore();
     const [trailer, setTrailer] = useState<string>('');
     const [muted, setMuted] = useState<boolean>(true);
     const [playing, setPlaying] = useState<boolean>(true);
+    const {user} = useContext(AuthContext);
 
     const base_url = process.env.NEXT_PUBLIC_API_DOMAIN as string;
     const api_key = process.env.NEXT_PUBLIC_API_KEY as string;
@@ -38,6 +42,18 @@ const Modal = () => {
 
         // eslint-disable-next-line
     }, [currentMovie]);
+
+    const addProductList = async() => {
+        try {
+            const docRef = await addDoc(collection(db, "list"), {
+                userId: user?.uid,
+                product: currentMovie,
+            });
+            console.log(docRef);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
 
     return (
         <MuiModal
@@ -80,7 +96,7 @@ const Modal = () => {
                                     </>
                                 )}
                             </button>
-                            <button className='modalButton'>
+                            <button className='modalButton' onClick={addProductList}>
                                 <BiPlus className='w-7 h-7' />
                             </button>
                             <button className='modalButton'>

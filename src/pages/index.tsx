@@ -4,12 +4,21 @@ import { Header, Hero, Modal, Row, SubscriptionPlan } from 'src/components'
 import { IMovie, Product } from 'src/components/interfaces/app.interface';
 import { API_REQUEST } from 'src/services/api.service';
 import { useInfoStore } from '../store/index';
+import {useContext, useEffect} from "react";
+import {getList} from "../helpers/lists";
+import {AuthContext} from "../context/auth.context";
 
 export default function Home({ trending, topRated, tvTop_rated, popular, discover, documentary, comedy, family, history, products, subscription }: HomeProps): JSX.Element {
   const { modal } = useInfoStore()
+  const {user} = useContext(AuthContext)
 
+  useEffect(() => {
+    const myList = getList(user?.uid)
+    console.log(myList)
+  }, [])
 
   if (!subscription.length) return <SubscriptionPlan products={products} />
+
 
   return (
     <>
