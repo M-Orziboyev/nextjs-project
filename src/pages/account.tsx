@@ -52,6 +52,7 @@ function Account() {
                     <p className='col-span-3 cursor-pointer text-blue-700 hover:underline'>Sign in of all devices</p>
                 </div>
             </main>
+
         </>
     )
 }
